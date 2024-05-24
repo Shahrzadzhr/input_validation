@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class FormScreen extends StatelessWidget {
   // Attribute
-  // (keine)
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final bool clickable = false;
 
   // Konstruktor
-  const FormScreen({super.key});
+  FormScreen({super.key});
 
   // Methoden
   @override
@@ -14,6 +15,7 @@ class FormScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Form(
+          key: _formKey,
           child: Column(children: [
             TextFormField(
               decoration: const InputDecoration(
@@ -34,7 +36,9 @@ class FormScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                clickable ? () {} : null;
+              },
               child: const Text("Login"),
             ),
           ]),
@@ -57,7 +61,7 @@ class FormScreen extends StatelessWidget {
   String? validatePw(String? input) {
     if (input == null || input.isEmpty) {
       return 'Bitte geben Sie ein Passwort ein';
-    } else if (input.length < 6 || input.length > 12) {
+    } else if (input.length < 6 && input.length > 12) {
       return 'Das Passwort muss zwischen 6 und 12 Zeichen lang sein';
     }
     return null;
